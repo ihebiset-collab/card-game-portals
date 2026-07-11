@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gate of Truth</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: radial-gradient(circle at top, #123b5d, #05070d 70%);
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 650px;
+            padding: 30px;
+            border: 2px solid #00e5ff;
+            border-radius: 20px;
+            box-shadow: 0 0 30px #00e5ff;
+            background: rgba(0, 0, 0, 0.65);
+        }
+
+        h1 {
+            color: #00e5ff;
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #b8f7ff;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        #question {
+            font-size: 28px;
+            line-height: 1.4;
+            margin: 35px 0;
+            min-height: 120px;
+        }
+
+        button {
+            background: #00e5ff;
+            color: #05070d;
+            border: none;
+            padding: 15px 30px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #8ff6ff;
+        }
+
+        .rule {
+            margin-top: 30px;
+            color: #d7fbff;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gate of Truth</h1>
+        <div class="subtitle">Scan the gate. Answer honestly. No masks.</div>
+
+        <div id="question">Press the button to open the gate.</div>
+
+        <button onclick="openGate()">Open the Gate</button>
+
+        <div class="rule">
+            Honest answer: continue. Refuse: lose 1 HP.
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            "Who here do you trust the least? Explain why.",
+            "Who here acts innocent but probably hides the most?",
+            "What is one truth about someone here you never said out loud?",
+            "Who here would you never want as an enemy?",
+            "Who here do you think understands you the least?",
+            "Who here gives main character energy?",
+            "Who here do you think gets jealous easily?",
+            "Who here would you trust with a secret?",
+            "Who here would you never trust with a secret?",
+            "What is one opinion you have about someone here but never said?",
+            "Choose one player. What do they need to hear but nobody says?",
+            "Who here would survive the longest in a betrayal game?",
+            "Who here talks big but avoids action?",
+            "Who here has the strongest presence when they enter a room?",
+            "Who here is harder to read than they think?"
+        ];
+
+        let usedIndexes = [];
+
+        function openGate() {
+            if (usedIndexes.length === questions.length) {
+                usedIndexes = [];
+            }
+
+            let index;
+
+            do {
+                index = Math.floor(Math.random() * questions.length);
+            } while (usedIndexes.includes(index));
+
+            usedIndexes.push(index);
+            document.getElementById("question").innerText = questions[index];
+        }
+    </script>
+</body>
+</html>
