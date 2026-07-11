@@ -3,24 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <title>Card Game Portals</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            background: #05070d;
+            margin: 0;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top, rgba(0, 229, 255, 0.18), transparent 35%),
+                radial-gradient(circle at bottom, rgba(138, 43, 226, 0.22), transparent 40%),
+                #05070d;
             color: white;
             font-family: Arial, sans-serif;
             text-align: center;
-            padding-top: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
         }
 
-        a {
+        .container {
+            width: 100%;
+            max-width: 850px;
+            border: 2px solid #00e5ff;
+            border-radius: 24px;
+            padding: 35px 25px;
+            background: rgba(0, 0, 0, 0.68);
+            box-shadow: 0 0 35px rgba(0, 229, 255, 0.55);
+        }
+
+        h1 {
             color: #00e5ff;
-            font-size: 24px;
+            font-size: 42px;
+            margin: 0 0 12px;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            color: #c8f8ff;
+            font-size: 18px;
+            margin-bottom: 35px;
+        }
+
+        .gates {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 18px;
+        }
+
+        .gate {
+            display: block;
+            text-decoration: none;
+            color: white;
+            border: 1px solid rgba(0, 229, 255, 0.75);
+            border-radius: 18px;
+            padding: 22px 16px;
+            background: rgba(0, 229, 255, 0.08);
+            transition: 0.2s ease;
+        }
+
+        .gate:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 22px rgba(0, 229, 255, 0.5);
+            background: rgba(0, 229, 255, 0.16);
+        }
+
+        .gate-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #00e5ff;
+            margin-bottom: 8px;
+        }
+
+        .gate-desc {
+            font-size: 14px;
+            color: #d9fbff;
+            line-height: 1.4;
+        }
+
+        .locked {
+            opacity: 0.45;
+            pointer-events: none;
+        }
+
+        .footer {
+            margin-top: 35px;
+            color: #aeefff;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 34px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            .container {
+                padding: 28px 18px;
+            }
         }
     </style>
 </head>
+
 <body>
-    <h1>Card Game Portals</h1>
-    <p>Choose a gate:</p>
-    <a href="gate-truth.html">Gate of Truth</a>
+    <div class="container">
+        <h1>Card Game Portals</h1>
+        <div class="subtitle">
+            Scan a card. Open a gate. Answer what it reveals.
+        </div>
+
+        <div class="gates">
+            <a class="gate" href="gate-truth.html">
+                <div class="gate-title">Gate of Truth</div>
+                <div class="gate-desc">Hot truths, social tension, and honest exposure.</div>
+            </a>
+
+            <a class="gate locked" href="#">
+                <div class="gate-title">Gate of Bonds</div>
+                <div class="gate-desc">Coming soon.</div>
+            </a>
+
+            <a class="gate locked" href="#">
+                <div class="gate-title">Gate of Shadows</div>
+                <div class="gate-desc">Coming soon.</div>
+            </a>
+
+            <a class="gate locked" href="#">
+                <div class="gate-title">Gate of Desire</div>
+                <div class="gate-desc">Coming soon.</div>
+            </a>
+
+            <a class="gate locked" href="#">
+                <div class="gate-title">Gate of Judgment</div>
+                <div class="gate-desc">Coming soon.</div>
+            </a>
+
+            <a class="gate locked" href="#">
+                <div class="gate-title">Gate of Betrayal</div>
+                <div class="gate-desc">Coming soon.</div>
+            </a>
+
+            <a class="gate locked" href="#">
+                <div class="gate-title">Gate of Destiny</div>
+                <div class="gate-desc">Coming soon.</div>
+            </a>
+        </div>
+
+        <div class="footer">
+            The gate does not choose the easy question.
+        </div>
+    </div>
 </body>
 </html>
