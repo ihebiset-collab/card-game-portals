@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rules of Play</title>
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: #f7fbff;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(0, 229, 255, 0.22), transparent 34%),
+        radial-gradient(circle at 85% 8%, rgba(255, 215, 0, 0.12), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(138, 43, 226, 0.24), transparent 42%),
+        #05070d;
+      padding: 22px;
+    }
+    .page { width: 100%; max-width: 1120px; margin: 0 auto; }
+    .hero {
+      text-align: center;
+      padding: 42px 24px;
+      border: 2px solid #00e5ff;
+      border-radius: 30px;
+      background: rgba(0, 0, 0, 0.72);
+      box-shadow: 0 0 38px rgba(0, 229, 255, 0.46), inset 0 0 28px rgba(0, 229, 255, 0.08);
+      margin-bottom: 22px;
+    }
+    .tag {
+      color: #8ff6ff;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 13px;
+      margin-bottom: 12px;
+      font-weight: bold;
+    }
+    h1 { color: #00e5ff; font-size: 50px; margin: 0 0 12px; line-height: 1.05; }
+    .subtitle { max-width: 820px; margin: 0 auto; color: #d7fbff; font-size: 18px; }
+    .quickbar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 12px;
+      margin: 22px 0;
+    }
+    .quickbar a {
+      color: white;
+      text-decoration: none;
+      text-align: center;
+      border: 1px solid rgba(0, 229, 255, 0.46);
+      background: rgba(0, 229, 255, 0.075);
+      padding: 13px 12px;
+      border-radius: 16px;
+      transition: 0.2s ease;
+    }
+    .quickbar a:hover {
+      transform: translateY(-3px);
+      background: rgba(0, 229, 255, 0.15);
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.32);
+    }
+    .section {
+      margin-bottom: 18px;
+      padding: 24px;
+      border-radius: 24px;
+      border: 1px solid rgba(0, 229, 255, 0.34);
+      background: rgba(0, 0, 0, 0.66);
+      box-shadow: inset 0 0 22px rgba(255, 255, 255, 0.035);
+    }
+    h2 { margin: 0 0 15px; color: #00e5ff; font-size: 30px; line-height: 1.15; }
+    h3 { margin: 20px 0 8px; color: #ffe98a; font-size: 21px; }
+    p { margin: 0 0 12px; }
+    ul, ol { padding-left: 22px; margin-top: 8px; }
+    li { margin-bottom: 7px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+      margin-top: 12px;
+    }
+    .tile {
+      border-radius: 18px;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.055);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+    }
+    .tile strong { display: block; color: #8ff6ff; font-size: 17px; margin-bottom: 7px; }
+    .gold strong { color: #ffd700; }
+    .red strong { color: #ff8a8a; }
+    .purple strong { color: #c59cff; }
+    .green strong { color: #93ffbd; }
+    .orange strong { color: #ffc38a; }
+    .pillrow { margin: 14px 0; }
+    .pill {
+      display: inline-block;
+      margin: 4px 4px 4px 0;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: #00e5ff;
+      color: #05070d;
+      font-size: 13px;
+      font-weight: bold;
+    }
+    .pill.gold { background: #ffd700; }
+    .pill.red { background: #ff2b2b; color: white; }
+    .pill.purple { background: #8a2be2; color: white; }
+    .callout {
+      border-radius: 18px;
+      padding: 18px;
+      margin-top: 14px;
+      border: 1px solid rgba(255, 215, 0, 0.38);
+      background: rgba(255, 215, 0, 0.08);
+      color: #fff3b8;
+    }
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      gap: 10px;
+      margin: 12px 0;
+    }
+    .step {
+      text-align: center;
+      padding: 14px 10px;
+      border-radius: 16px;
+      background: rgba(0, 229, 255, 0.08);
+      border: 1px solid rgba(0, 229, 255, 0.28);
+      font-weight: bold;
+      color: #d7fbff;
+    }
+    .footerquote {
+      text-align: center;
+      color: #d7fbff;
+      font-style: italic;
+      font-size: 19px;
+      margin: 26px 0 10px;
+    }
+    .back { display: inline-block; margin: 18px 0 40px; color: #00e5ff; text-decoration: none; }
+    .back:hover { text-decoration: underline; }
+    @media (max-width: 650px) {
+      body { padding: 14px; }
+      .hero { padding: 34px 18px; }
+      h1 { font-size: 37px; }
+      .subtitle { font-size: 16px; }
+      .section { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="tag">Official Rule System</div>
+      <h1>Rules of Play</h1>
+      <p class="subtitle">A real-life battle of HP, pressure, truth, chaos, reputation, and Legacy. Quest cards stay outside the battle as personal life-level-up gifts.</p>
+    </header>
+
+    <nav class="quickbar" aria-label="Page sections">
+      <a href="#identity">Identity</a>
+      <a href="#setup">Setup</a>
+      <a href="#winlose">Win & Lose</a>
+      <a href="#turns">Turns</a>
+      <a href="#categories">Categories</a>
+      <a href="#legacy">Legacy</a>
+      <a href="#duels">Duels</a>
+      <a href="#quests">Quest Gifts</a>
+    </nav>
+
+    <section id="identity" class="section">
+      <h2>1. Game Identity</h2>
+      <p>Each player is a <strong>Champion</strong>. The match is won by surviving pressure, breaking rivals, earning Legacy titles, and claiming the Crown.</p>
+      <div class="flow">
+        <div class="step">Fight</div>
+        <div class="step">Expose</div>
+        <div class="step">Survive</div>
+        <div class="step">Earn Titles</div>
+        <div class="step">Claim Crown</div>
+        <div class="step">Leave with Quest</div>
+      </div>
+      <div class="callout"><strong>Main idea:</strong> Action cards create battle, Emotion cards create pressure, Portal cards reveal truths, Chaos cards break rules, Legacy cards decide victory, and Quest cards help players level up in real life after the match.</div>
+    </section>
+
+    <section id="setup" class="section">
+      <h2>2. Setup</h2>
+      <div class="grid">
+        <div class="tile"><strong>Players</strong><p>Best with 3-6 players. Playable with 2-8. More players are possible if each Champion has their own pack.</p></div>
+        <div class="tile"><strong>Starting Stats</strong><p>Each Champion starts with 10 HP, 5 cards in hand, 0 unlocked Legacy cards, and 0 Broken Marks.</p></div>
+        <div class="tile"><strong>Battle Deck</strong><p>Shuffle Action, Emotion, Chaos, and Portal cards together. This is the deck used during the match.</p></div>
+        <div class="tile"><strong>Legacy Set</strong><p>Keep each player's Legacy cards outside the deck, locked and visible near that player.</p></div>
+        <div class="tile"><strong>Quest Deck</strong><p>Quest cards are not used during battle. They are drawn after the match as personal gifts.</p></div>
+        <div class="tile"><strong>First Player</strong><p>Choose randomly. Play continues clockwise unless a card reverses the direction.</p></div>
+      </div>
+      <h3>If a deck runs out</h3>
+      <p>Shuffle that player's discard pile to create a new Battle Deck.</p>
+    </section>
+
+    <section id="winlose" class="section">
+      <h2>3. How to Win and Lose</h2>
+      <div class="grid">
+        <div class="tile gold"><strong>Main Win: Crown Victory</strong><p>Unlock 3 Legacy cards, claim The Crown of Legacy, then survive one full round until the start of your next turn.</p></div>
+        <div class="tile red"><strong>Combat Win: Fallen Victory</strong><p>You win if every other player becomes Fallen.</p></div>
+      </div>
+
+      <h3>Broken State</h3>
+      <p>When your HP reaches 0, you do not lose immediately. You enter Broken State.</p>
+      <ul>
+        <li>Gain 1 Broken Mark.</li>
+        <li>Discard 1 card.</li>
+        <li>Lose 1 unlocked Legacy card if you have one.</li>
+        <li>Return to 3 HP.</li>
+        <li>Your next turn becomes a Recovery Turn.</li>
+      </ul>
+
+      <h3>Fallen State</h3>
+      <p>If you receive 2 Broken Marks, you become Fallen and lose the match. Fallen players may still vote in Portal, Judgment, and Duel moments, but they cannot win.</p>
+    </section>
+
+    <section id="turns" class="section">
+      <h2>4. Turn Structure</h2>
+      <div class="tile">
+        <ol>
+          <li>Draw 1 card.</li>
+          <li>Play 1 card OR perform 1 Basic Action.</li>
+          <li>Resolve all effects.</li>
+          <li>Unlock any Legacy card you earned.</li>
+          <li>End turn. Max hand size is 7 cards.</li>
+        </ol>
+      </div>
+
+      <h3>Basic Actions</h3>
+      <div class="grid">
+        <div class="tile"><strong>Basic Strike</strong><p>Deal 1 damage to one player.</p></div>
+        <div class="tile"><strong>Focus</strong><p>Draw 1 card.</p></div>
+        <div class="tile"><strong>Recover</strong><p>Gain 1 HP.</p></div>
+        <div class="tile"><strong>Guard</strong><p>Reduce the next damage you take by 1.</p></div>
+      </div>
+
+      <h3>Recovery Turn</h3>
+      <p>Draw 1 card. You cannot attack and cannot play a Portal. You may only defend if attacked. Then your turn ends.</p>
+    </section>
+
+    <section id="categories" class="section">
+      <h2>5. Card Categories</h2>
+      <div class="grid">
+        <div class="tile red"><strong>Action</strong><p>Battle power: damage, defense, HP steal, hand control, skipped turns, and reversed turn order.</p></div>
+        <div class="tile"><strong>Emotion</strong><p>Social pressure: the target performs or answers. Refuse, dodge, or fake it -> lose 1 HP.</p></div>
+        <div class="tile purple"><strong>Chaos</strong><p>Rule breaking: cancel, reverse, duplicate, swap, or force random effects.</p></div>
+        <div class="tile"><strong>Portal</strong><p>QR mystery: choose a player, scan the gate, open the page, and obey the result.</p></div>
+        <div class="tile gold"><strong>Legacy</strong><p>Reputation and victory: earned titles that unlock effects and lead to the Crown.</p></div>
+        <div class="tile green"><strong>Quest</strong><p>Personal growth gifts: not used in battle. Drawn after the match.</p></div>
+      </div>
+
+      <h3>Portal Rule</h3>
+      <p>When a Portal is played, choose a player, scan that Portal's QR code, press <strong>Open the Gate</strong>, and obey the result.</p>
+      <ul>
+        <li>If the player completes the prompt honestly, they may draw 1 card OR recover 1 HP.</li>
+        <li>If the player refuses, dodges, or gives a fake answer, they lose 1 HP OR discard 1 card.</li>
+        <li>Gate of Destiny is harsher: refusing costs 2 HP OR 2 cards.</li>
+      </ul>
+
+      <h3>Emotion Rule</h3>
+      <p>If the target completes the Emotion prompt, the effect ends normally. If the table agrees the performance was legendary, the target may draw 1 card.</p>
+
+      <h3>Chaos Rule</h3>
+      <p>Chaos cards override normal rules unless another Chaos card or a direct cancel effect stops them.</p>
+    </section>
+
+    <section id="legacy" class="section">
+      <h2>6. Legacy Rules</h2>
+      <p>Legacy cards are not drawn. They start locked. When a player meets a Legacy card's Gain condition, they unlock it and place it in front of them.</p>
+      <div class="pillrow">
+        <span class="pill gold">Only 1 Legacy may be unlocked per turn</span>
+        <span class="pill gold">Legacy cards can be challenged</span>
+        <span class="pill gold">The Crown must survive one full round</span>
+      </div>
+      <p>Each Legacy effect may be used once per time you unlock or gain that Legacy. If the Legacy is lost and gained again later, its effect resets.</p>
+      <div class="grid">
+        <div class="tile gold"><strong>Alpha Crest</strong><p>Gain: Break 2 players. Effect: Command 1 Portal answer. Lose: Refuse a challenge.</p></div>
+        <div class="tile gold"><strong>Saint's Mark</strong><p>Gain: Protect 1 player. Effect: Block 1 betrayal. Lose: Betray an ally.</p></div>
+        <div class="tile gold"><strong>The Challenger's Medal</strong><p>Gain: Win 2 duels. Effect: Challenge 1 Legacy. Lose: Lose a duel.</p></div>
+        <div class="tile gold"><strong>The Scholar's Seal</strong><p>Gain: Win a truth vote. Effect: Force a deeper answer. Lose: Fake an answer.</p></div>
+        <div class="tile gold"><strong>The Phoenix Emblem</strong><p>Gain: Return from Broken State. Effect: Ignore 1 loss. Lose: Give up after breaking.</p></div>
+        <div class="tile gold"><strong>The Crown of Legacy</strong><p>Gain: Hold 3 Legacies. Effect: Only Legacies may challenge you. Lose: Lose a Crown duel.</p></div>
+      </div>
+    </section>
+
+    <section id="duels" class="section">
+      <h2>7. Duels and Legacy Challenges</h2>
+      <h3>Duel Procedure</h3>
+      <ol>
+        <li>The challenger declares the duel.</li>
+        <li>Both players open Gate of Judgment or Gate of Courage.</li>
+        <li>Each player answers one prompt.</li>
+        <li>The table votes who answered better.</li>
+        <li>The winner wins the duel.</li>
+      </ol>
+      <p>If there are only 2 players, answer the prompts first, then use best-of-3 rock-paper-scissors if a vote is impossible.</p>
+
+      <h3>Duel Reward</h3>
+      <div class="grid">
+        <div class="tile"><strong>Winner</strong><p>Draws 1 card.</p></div>
+        <div class="tile"><strong>Loser</strong><p>Loses 1 HP.</p></div>
+      </div>
+
+      <h3>Legacy Challenge Cost</h3>
+      <p>To challenge a Legacy, use The Challenger's Medal, discard 2 cards, or lose 2 HP.</p>
+      <div class="grid">
+        <div class="tile"><strong>If Challenger Wins</strong><p>They take the challenged Legacy card.</p></div>
+        <div class="tile"><strong>If Defender Wins</strong><p>They keep the Legacy card. Challenger loses 1 HP.</p></div>
+      </div>
+    </section>
+
+    <section id="quests" class="section">
+      <h2>8. Quest Cards: Life Gift</h2>
+      <p>Quest cards are not part of the battle. They are personal life-level-up missions drawn after the match.</p>
+      <div class="grid">
+        <div class="tile green"><strong>Every Player</strong><p>Draws 1 Quest card after the match.</p></div>
+        <div class="tile green"><strong>Winner</strong><p>Draws 2 Quest cards, keeps 1, and may gift the other to any player.</p></div>
+      </div>
+      <p>Quest cards are about discipline, fitness, reflection, spirituality, gratitude, habits, and personal growth.</p>
+    </section>
+
+    <div class="footerquote">"Fight. Expose. Survive. Earn titles. Claim the Crown. Leave with a Quest."</div>
+    <a class="back" href="index.html">Back to portals</a>
+  </main>
+</body>
+</html>

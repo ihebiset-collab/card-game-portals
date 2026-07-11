@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Card Codex</title>
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: #f7fbff;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.55;
+      background:
+        radial-gradient(circle at 12% 0%, rgba(138, 43, 226, 0.25), transparent 34%),
+        radial-gradient(circle at 90% 12%, rgba(0, 229, 255, 0.18), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(255, 45, 120, 0.13), transparent 40%),
+        #05070d;
+      padding: 22px;
+    }
+    .page { width: 100%; max-width: 1180px; margin: 0 auto; }
+    .hero {
+      text-align: center;
+      padding: 42px 24px;
+      border: 2px solid #c59cff;
+      border-radius: 30px;
+      background: rgba(0, 0, 0, 0.72);
+      box-shadow: 0 0 38px rgba(197, 156, 255, 0.44), inset 0 0 28px rgba(197, 156, 255, 0.08);
+      margin-bottom: 22px;
+    }
+    .tag { color: #c59cff; text-transform: uppercase; letter-spacing: 4px; font-size: 13px; margin-bottom: 12px; font-weight: bold; }
+    h1 { color: #c59cff; font-size: 50px; margin: 0 0 12px; line-height: 1.05; }
+    .subtitle { max-width: 820px; margin: 0 auto; color: #eadcff; font-size: 18px; }
+    .quickbar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin: 22px 0;
+    }
+    .quickbar a {
+      color: white;
+      text-decoration: none;
+      text-align: center;
+      border: 1px solid rgba(197, 156, 255, 0.46);
+      background: rgba(197, 156, 255, 0.075);
+      padding: 13px 12px;
+      border-radius: 16px;
+      transition: 0.2s ease;
+    }
+    .quickbar a:hover { transform: translateY(-3px); background: rgba(197, 156, 255, 0.15); box-shadow: 0 0 20px rgba(197, 156, 255, 0.32); }
+    .section {
+      margin-bottom: 18px;
+      padding: 24px;
+      border-radius: 24px;
+      background: rgba(0, 0, 0, 0.66);
+      border: 1px solid rgba(197, 156, 255, 0.34);
+      box-shadow: inset 0 0 22px rgba(255, 255, 255, 0.035);
+    }
+    h2 { margin: 0 0 10px; font-size: 31px; line-height: 1.15; }
+    .desc { color: #e8faff; margin: 0 0 18px; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 14px;
+    }
+    .card {
+      border-radius: 18px;
+      padding: 17px;
+      background: rgba(255, 255, 255, 0.055);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+    }
+    .name { font-size: 18px; font-weight: bold; margin-bottom: 8px; }
+    .effect { font-size: 15px; color: #f2f7ff; }
+    .note {
+      margin-top: 16px;
+      border-radius: 18px;
+      padding: 18px;
+      background: rgba(0, 229, 255, 0.08);
+      border: 1px solid rgba(0, 229, 255, 0.32);
+      color: #d7fbff;
+    }
+    .action h2, .action .name { color: #ff8a8a; }
+    .emotion h2, .emotion .name { color: #ffb3dd; }
+    .chaos h2, .chaos .name { color: #d9c2ff; }
+    .portal h2, .portal .name { color: #8ff6ff; }
+    .legacy h2, .legacy .name { color: #ffe98a; }
+    .quest h2, .quest .name { color: #a8ffc5; }
+    .info h2, .info .name { color: #ffffff; }
+    .back { display: inline-block; margin: 18px 0 40px; color: #c59cff; text-decoration: none; }
+    .back:hover { text-decoration: underline; }
+    @media (max-width: 650px) {
+      body { padding: 14px; }
+      .hero { padding: 34px 18px; }
+      h1 { font-size: 37px; }
+      .subtitle { font-size: 16px; }
+      .section { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="tag">Complete Card Reference</div>
+      <h1>Card Codex</h1>
+      <p class="subtitle">Every category has a purpose. Every card has a role. Use this page as the official quick reference during the match.</p>
+    </header>
+
+    <nav class="quickbar" aria-label="Card categories">
+      <a href="#action">Action</a>
+      <a href="#emotion">Emotion</a>
+      <a href="#chaos">Chaos</a>
+      <a href="#portal">Portal</a>
+      <a href="#legacy">Legacy</a>
+      <a href="#quest">Quest</a>
+      <a href="#info">Info</a>
+    </nav>
+
+    <section id="action" class="section action">
+      <h2>Action Cards</h2>
+      <p class="desc">Action cards are the battle system. They control HP, attacks, defense, hand control, skipped turns, and turn order.</p>
+      <div class="cards">
+        <div class="card"><div class="name">Deal Damage</div><div class="effect">Choose 1 player. Deal 2 damage.</div></div>
+        <div class="card"><div class="name">Reflect Damage</div><div class="effect">Reaction: send incoming damage back to the attacker.</div></div>
+        <div class="card"><div class="name">Disarm</div><div class="effect">Choose 1 player. They cannot play an Attack card on their next turn.</div></div>
+        <div class="card"><div class="name">Force Card Drop</div><div class="effect">Choose 1 player. They discard 1 random card.</div></div>
+        <div class="card"><div class="name">Block Attack</div><div class="effect">Reaction: cancel 1 incoming attack against you.</div></div>
+        <div class="card"><div class="name">Cancel Turns</div><div class="effect">Reaction: cancel 1 turn-control effect such as Skip, Reverse, or Cancel.</div></div>
+        <div class="card"><div class="name">Skip Player</div><div class="effect">Choose 1 player. They skip their next turn.</div></div>
+        <div class="card"><div class="name">Steal HP</div><div class="effect">Choose 1 player. They lose 2 HP and you recover 2 HP.</div></div>
+        <div class="card"><div class="name">Swap Hands</div><div class="effect">Choose 1 player. Swap your entire hand with theirs.</div></div>
+        <div class="card"><div class="name">Reverse Turns</div><div class="effect">Reverse the direction of play immediately.</div></div>
+      </div>
+      <div class="note">Defense cards can be played as reactions. If multiple reactions happen, the newest card resolves first.</div>
+    </section>
+
+    <section id="emotion" class="section emotion">
+      <h2>Emotion Cards</h2>
+      <p class="desc">Emotion cards are social pressure cards. They create dares, tricks, taunts, reactions, and table tension.</p>
+      <div class="cards">
+        <div class="card"><div class="name">Confession Time</div><div class="effect">Target must confess or answer honestly. Refuse or fake it -> lose 1 HP.</div></div>
+        <div class="card"><div class="name">Dance or Draw</div><div class="effect">Target must perform the card's dare. If the table rejects it, lose 1 HP.</div></div>
+        <div class="card"><div class="name">Dramatic Entry</div><div class="effect">Target performs a dramatic entrance or speech with full energy.</div></div>
+        <div class="card"><div class="name">Echo Game</div><div class="effect">Target echoes or mirrors another player's words, tone, or energy as instructed.</div></div>
+        <div class="card"><div class="name">Face Freeze</div><div class="effect">Target must freeze their face and resist reacting until the prompt ends.</div></div>
+        <div class="card"><div class="name">Mock Crown</div><div class="effect">Target receives a mocking title or taunt and must respond without dodging.</div></div>
+        <div class="card"><div class="name">Silent Roaster</div><div class="effect">Target must roast or be roasted under the card's silent/limited rule.</div></div>
+        <div class="card"><div class="name">Vibe Switch</div><div class="effect">Target must switch attitude, vibe, or behavior as instructed.</div></div>
+        <div class="card"><div class="name">Voice Swap</div><div class="effect">Target must speak in the assigned voice until the effect ends.</div></div>
+        <div class="card"><div class="name">Who Smirked</div><div class="effect">Exposes reactions. The player caught reacting faces the card's penalty.</div></div>
+      </div>
+      <div class="note">If the table agrees the performance was legendary, the target may draw 1 card.</div>
+    </section>
+
+    <section id="chaos" class="section chaos">
+      <h2>Chaos Cards</h2>
+      <p class="desc">Chaos cards break normal rules. They interrupt, cancel, duplicate, reverse, swap, or force unpredictable effects.</p>
+      <div class="cards">
+        <div class="card"><div class="name">The Trickster's Hand</div><div class="effect">Swap 1 card with another player at random.</div></div>
+        <div class="card"><div class="name">The Void Mirror</div><div class="effect">Reverse the effect of any card played this round.</div></div>
+        <div class="card"><div class="name">The Eclipse Sigil</div><div class="effect">Cancel 1 card's effect this turn.</div></div>
+        <div class="card"><div class="name">The Paradox Token</div><div class="effect">Duplicate a card's effect once, then lose this card.</div></div>
+        <div class="card"><div class="name">The Wild Surge</div><div class="effect">Draw 1 random card from any category and activate it instantly if possible.</div></div>
+        <div class="card"><div class="name">The Void Whisper</div><div class="effect">Draw 1 random card from any category. Obey it instantly. Refuse -> lose 2 HP.</div></div>
+      </div>
+      <div class="note">If Wild Surge or Void Whisper draws a Quest during battle, ignore the Quest and draw again. Legacy only unlocks if its Gain condition is met.</div>
+    </section>
+
+    <section id="portal" class="section portal">
+      <h2>Portal Cards</h2>
+      <p class="desc">Portal cards are QR mystery cards. They create intense truths, player choices, social tension, and random fate.</p>
+      <div class="cards">
+        <div class="card"><div class="name">Gate of Truth</div><div class="effect">Hot truths, hidden opinions, and direct exposure.</div></div>
+        <div class="card"><div class="name">Gate of Bonds</div><div class="effect">Trust, loyalty, friendship tension, and emotional connection.</div></div>
+        <div class="card"><div class="name">Gate of Shadows</div><div class="effect">Hidden weakness, insecurity, masks, darker thoughts, and reflection.</div></div>
+        <div class="card"><div class="name">Gate of Desire</div><div class="effect">Attention, jealousy, attraction, ambition, ego, and secret wants.</div></div>
+        <div class="card"><div class="name">Gate of Judgment</div><div class="effect">Group voting, reputation checks, public pressure, and worthiness.</div></div>
+        <div class="card"><div class="name">Gate of Betrayal</div><div class="effect">Loyalty tests, sacrifice choices, trust breaks, and betrayal pressure.</div></div>
+        <div class="card"><div class="name">Gate of Destiny</div><div class="effect">Random effects, rewards, punishments, truths, choices, and chaotic fate.</div></div>
+        <div class="card"><div class="name">Gate of Courage</div><div class="effect">Bold confessions, direct confrontation, brave honesty, and pressure.</div></div>
+      </div>
+      <div class="note">Complete honestly -> draw 1 card OR recover 1 HP. Refuse/dodge/fake -> lose 1 HP OR discard 1 card. Gate of Destiny refusal costs 2 HP OR 2 cards.</div>
+    </section>
+
+    <section id="legacy" class="section legacy">
+      <h2>Legacy Cards</h2>
+      <p class="desc">Legacy cards are earned titles. They are the main victory path and represent reputation, power, survival, and status.</p>
+      <div class="cards">
+        <div class="card"><div class="name">Alpha Crest</div><div class="effect">Gain: Break 2 players. Effect: Command 1 Portal answer. Lose: Refuse a challenge.</div></div>
+        <div class="card"><div class="name">Saint's Mark</div><div class="effect">Gain: Protect 1 player. Effect: Block 1 betrayal. Lose: Betray an ally.</div></div>
+        <div class="card"><div class="name">The Challenger's Medal</div><div class="effect">Gain: Win 2 duels. Effect: Challenge 1 Legacy. Lose: Lose a duel.</div></div>
+        <div class="card"><div class="name">The Scholar's Seal</div><div class="effect">Gain: Win a truth vote. Effect: Force a deeper answer. Lose: Fake an answer.</div></div>
+        <div class="card"><div class="name">The Phoenix Emblem</div><div class="effect">Gain: Return from Broken State. Effect: Ignore 1 loss. Lose: Give up after breaking.</div></div>
+        <div class="card"><div class="name">The Crown of Legacy</div><div class="effect">Gain: Hold 3 Legacies. Effect: Only Legacies may challenge you. Lose: Lose a Crown duel.</div></div>
+      </div>
+      <div class="note">Win path: unlock 3 Legacies, claim the Crown, and survive one full round.</div>
+    </section>
+
+    <section id="quest" class="section quest">
+      <h2>Quest Cards</h2>
+      <p class="desc">Quest cards are not battle cards. They are personal life-level-up gifts after the game ends.</p>
+      <div class="cards">
+        <div class="card"><div class="name">Power Start</div><div class="effect">Morning routine: make your bed or clean your place, stretch, freshen up, and complete hygiene.</div></div>
+        <div class="card"><div class="name">Sacred Reps</div><div class="effect">Fitness mission: push-ups, shadow boxing, plank, and sit-ups.</div></div>
+        <div class="card"><div class="name">Prayer Signal</div><div class="effect">Spiritual mission: pray, make a wish, give thanks, and ask forgiveness.</div></div>
+        <div class="card"><div class="name">Read to Grow</div><div class="effect">Learning mission: read, write the best line, and write one lesson learned.</div></div>
+        <div class="card"><div class="name">Small Step</div><div class="effect">Choose one goal, write the first action, take the action now, and reflect.</div></div>
+        <div class="card"><div class="name">Schedule Ritual</div><div class="effect">Create a real schedule for a new habit and commit to it.</div></div>
+        <div class="card"><div class="name">Personal Creed</div><div class="effect">Define values, principles, standards, dislikes, and what you want to change.</div></div>
+        <div class="card"><div class="name">Gratitude & Vision</div><div class="effect">Practice gratitude, visualize your dream achieved, and reflect on your direction.</div></div>
+      </div>
+      <div class="note">After the match: every player draws 1 Quest. Winner draws 2, keeps 1, and may gift the other.</div>
+    </section>
+
+    <section id="info" class="section info">
+      <h2>Info Cards</h2>
+      <p class="desc">These are support cards with QR links. They are not part of the Battle Deck unless your group wants them as reference cards.</p>
+      <div class="cards">
+        <div class="card"><div class="name">Rules of Play</div><div class="effect">QR card that opens the full official rule page.</div></div>
+        <div class="card"><div class="name">Card Codex</div><div class="effect">QR card that opens this complete category and card reference.</div></div>
+      </div>
+    </section>
+
+    <a class="back" href="index.html">Back to portals</a>
+  </main>
+</body>
+</html>
