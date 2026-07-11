@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gate of Bonds</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top, rgba(0, 229, 255, 0.22), transparent 32%),
+                radial-gradient(circle at bottom, rgba(138, 43, 226, 0.20), transparent 45%),
+                #05070d;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 22px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 720px;
+            padding: 34px 24px;
+            border: 2px solid #00e5ff;
+            border-radius: 24px;
+            box-shadow:
+                0 0 30px rgba(0, 229, 255, 0.65),
+                inset 0 0 22px rgba(0, 229, 255, 0.12);
+            background: rgba(0, 0, 0, 0.72);
+        }
+
+        .tag {
+            color: #8ff6ff;
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #00e5ff;
+            font-size: 44px;
+            margin: 0 0 10px;
+        }
+
+        .subtitle {
+            color: #c8f8ff;
+            margin-bottom: 28px;
+            font-size: 18px;
+            line-height: 1.4;
+        }
+
+        #questionBox {
+            border: 1px solid rgba(0, 229, 255, 0.55);
+            border-radius: 18px;
+            background: rgba(0, 229, 255, 0.07);
+            padding: 25px 18px;
+            margin: 25px 0;
+            min-height: 185px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #question {
+            font-size: 29px;
+            line-height: 1.38;
+            color: white;
+        }
+
+        button {
+            background: #00e5ff;
+            color: #05070d;
+            border: none;
+            padding: 16px 32px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 14px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.45);
+        }
+
+        button:hover {
+            background: #8ff6ff;
+        }
+
+        .rule {
+            margin-top: 25px;
+            color: #d7fbff;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .counter {
+            margin-top: 14px;
+            color: #8ff6ff;
+            font-size: 13px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 28px;
+            color: #00e5ff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            #question {
+                font-size: 24px;
+            }
+
+            #questionBox {
+                min-height: 210px;
+            }
+
+            button {
+                font-size: 18px;
+                padding: 15px 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="tag">Portal Card</div>
+        <h1>Gate of Bonds</h1>
+
+        <div class="subtitle">
+            Open the gate. Choose carefully. Every bond reveals something.
+        </div>
+
+        <div id="questionBox">
+            <div id="question">Press the button to open the gate.</div>
+        </div>
+
+        <button onclick="openGate()">Open the Gate</button>
+
+        <div class="counter" id="counter"></div>
+
+        <div class="rule">
+            Rule: Answer honestly about the chosen player. Refuse, dodge, or give a fake answer → lose 1 HP or discard 1 card.
+        </div>
+
+        <a class="back" href="index.html">Back to portals</a>
+    </div>
+
+    <script>
+        const questions = [
+            "Choose one player. What is one thing you genuinely respect about them?",
+            "Choose one player. What makes them valuable to the group?",
+            "Choose one player. What is something they do that makes people trust them?",
+            "Choose one player. What is something they do that makes people doubt them?",
+            "Choose one player. What kind of friend do you think they are?",
+            "Choose one player. Would you trust them with a serious secret? Explain.",
+            "Choose one player. Would you trust them with money? Explain.",
+            "Choose one player. Would you trust them to defend you when you are not there?",
+            "Choose one player. What is one situation where you would want them beside you?",
+            "Choose one player. What is one situation where you would not want them involved?",
+            "Who here gives the safest energy?",
+            "Who here gives the most loyal energy?",
+            "Who here gives the most unstable energy?",
+            "Who here feels like they would disappear when things get hard?",
+            "Who here feels like they would stay when things get hard?",
+            "Who here would you call first if you were in real trouble?",
+            "Who here would you call last if you were in real trouble?",
+            "Who here would give the best advice?",
+            "Who here gives good advice but probably does not follow it?",
+            "Who here would tell you the truth even if it hurts?",
+            "Who here would comfort you with a lie instead of hurting you with the truth?",
+            "Who here would be the best teammate in a serious challenge?",
+            "Who here would be the worst teammate in a serious challenge?",
+            "Who here would you pick to lead the group?",
+            "Who here would you not trust as leader?",
+            "Who here would protect the group first?",
+            "Who here would protect themselves first?",
+            "Who here would sacrifice comfort for someone they care about?",
+            "Who here would sacrifice someone else to win a game?",
+            "Who here is the easiest person to open up to?",
+            "Who here is the hardest person to open up to?",
+            "Who here do you think listens the best?",
+            "Who here do you think only listens when it benefits them?",
+            "Who here makes people feel seen?",
+            "Who here makes people feel judged?",
+            "Who here hides care behind sarcasm?",
+            "Who here acts cold but probably cares deeply?",
+            "Who here acts friendly but is hard to truly know?",
+            "Who here do you think has the softest heart?",
+            "Who here has the strongest loyalty?",
+            "Who here has loyalty that depends on the situation?",
+            "Who here would keep a secret forever?",
+            "Who here would accidentally expose a secret?",
+            "Who here would expose a secret on purpose if angry?",
+            "Who here do you think forgives easily?",
+            "Who here do you think forgives but never forgets?",
+            "Who here do you think holds silent grudges?",
+            "Who here would smile while being secretly disappointed?",
+            "Who here is most likely to hide jealousy in a friendship?",
+            "Who here is most likely to get possessive over friends?",
+            "Who here would get hurt but pretend they do not care?",
+            "Who here would confront a friend directly?",
+            "Who here would avoid confrontation until it explodes?",
+            "Choose two players. Which two have the strongest bond?",
+            "Choose two players. Which two would make a dangerous alliance?",
+            "Choose two players. Which two probably misunderstand each other the most?",
+            "Choose two players. Which two would become enemies in a survival game?",
+            "Choose two players. Which two would protect each other no matter what?",
+            "Choose two players. Which two would argue but still stay loyal?",
+            "Choose two players. Which two are too similar to get along peacefully?",
+            "Choose two players. Which two are opposites but could work well together?",
+            "Choose one player. What is one compliment they deserve but rarely hear?",
+            "Choose one player. What is one warning they need to hear?",
+            "Choose one player. What do you think they need more of in their life?",
+            "Choose one player. What do you think they should stop tolerating?",
+            "Choose one player. What do you think they should be more honest about?",
+            "Choose one player. What do you think they fear losing?",
+            "Choose one player. What do you think they bring to a friendship?",
+            "Choose one player. What do you think they demand from others without saying it?",
+            "Choose one player. What kind of people should they avoid?",
+            "Choose one player. What kind of people do they attract?",
+            "Choose one player. What is one thing they probably need but never ask for?",
+            "Choose one player. What is one thing they give others but do not receive enough?",
+            "Choose one player. What would make your bond with them stronger?",
+            "Choose one player. What could damage your bond with them?",
+            "Choose one player. What is one thing you never told them but should?",
+            "Choose one player. What is one thing you appreciate about them but hide?",
+            "Choose one player. What is one thing they do that annoys you but you tolerate?",
+            "Choose one player. What is one thing they do that makes people want to stay close?",
+            "Choose one player. What is one thing they do that pushes people away?",
+            "Choose one player. What is one truth about your connection with them?",
+            "Who here would you trust during your weakest moment?",
+            "Who here would you not want to see you at your weakest?",
+            "Who here would understand your silence best?",
+            "Who here would misread your silence completely?",
+            "Who here would notice when you are not okay?",
+            "Who here would miss the signs completely?",
+            "Who here would you choose for a deep 3 AM conversation?",
+            "Who here would turn a deep conversation into a joke?",
+            "Who here feels like a real one?",
+            "Who here feels like they still keep walls up?",
+            "Who here do you think needs more love than they admit?",
+            "Who here do you think gives more than they receive?",
+            "Who here do you think receives more than they give?",
+            "Who here do you think people underestimate as a friend?",
+            "Who here do you think people overestimate as a friend?",
+            "Who here would you want to rebuild a broken friendship with?",
+            "Who here would you not chase if they walked away?",
+            "Who here do you think could hurt you the most emotionally?",
+            "Who here do you think could heal you the most emotionally?",
+            "Who here would you trust to choose for you if you could not choose?",
+            "Who here would you never let make a decision for you?",
+            "Who here do you think is secretly afraid of being replaced?",
+            "Who here do you think is secretly afraid of being forgotten?",
+            "Who here would you choose as your final ally?",
+            "Who here would you choose as your rival but still respect?"
+        ];
+
+        let usedIndexes = [];
+
+        function openGate() {
+            if (usedIndexes.length === questions.length) {
+                usedIndexes = [];
+            }
+
+            let index;
+
+            do {
+                index = Math.floor(Math.random() * questions.length);
+            } while (usedIndexes.includes(index));
+
+            usedIndexes.push(index);
+
+            document.getElementById("question").innerText = questions[index];
+            document.getElementById("counter").innerText =
+                "Gate opened: " + usedIndexes.length + " / " + questions.length;
+        }
+    </script>
+</body>
+</html>

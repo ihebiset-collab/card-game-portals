@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gate of Betrayal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top, rgba(255, 35, 35, 0.24), transparent 32%),
+                radial-gradient(circle at bottom, rgba(80, 0, 0, 0.45), transparent 45%),
+                #080202;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 22px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 720px;
+            padding: 34px 24px;
+            border: 2px solid #ff2b2b;
+            border-radius: 24px;
+            box-shadow:
+                0 0 30px rgba(255, 43, 43, 0.65),
+                inset 0 0 22px rgba(255, 255, 255, 0.06);
+            background: rgba(0, 0, 0, 0.78);
+        }
+
+        .tag {
+            color: #ff9b9b;
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #ff2b2b;
+            font-size: 44px;
+            margin: 0 0 10px;
+        }
+
+        .subtitle {
+            color: #ffd6d6;
+            margin-bottom: 28px;
+            font-size: 18px;
+            line-height: 1.4;
+        }
+
+        #questionBox {
+            border: 1px solid rgba(255, 43, 43, 0.60);
+            border-radius: 18px;
+            background: rgba(255, 43, 43, 0.08);
+            padding: 25px 18px;
+            margin: 25px 0;
+            min-height: 185px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #question {
+            font-size: 29px;
+            line-height: 1.38;
+            color: white;
+        }
+
+        button {
+            background: #ff2b2b;
+            color: #080202;
+            border: none;
+            padding: 16px 32px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 14px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 43, 43, 0.45);
+        }
+
+        button:hover {
+            background: #ff9b9b;
+        }
+
+        .rule {
+            margin-top: 25px;
+            color: #ffd6d6;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .counter {
+            margin-top: 14px;
+            color: #ff9b9b;
+            font-size: 13px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 28px;
+            color: #ff9b9b;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            #question {
+                font-size: 24px;
+            }
+
+            #questionBox {
+                min-height: 210px;
+            }
+
+            button {
+                font-size: 18px;
+                padding: 15px 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="tag">Portal Card</div>
+        <h1>Gate of Betrayal</h1>
+
+        <div class="subtitle">
+            Open the gate. Choose someone. Loyalty always has a price.
+        </div>
+
+        <div id="questionBox">
+            <div id="question">Press the button to open the gate.</div>
+        </div>
+
+        <button onclick="openGate()">Open the Gate</button>
+
+        <div class="counter" id="counter"></div>
+
+        <div class="rule">
+            Rule: Answer honestly. If the prompt gives an action, obey it. Refuse, dodge, or give a fake answer → lose 1 HP or discard 1 card.
+        </div>
+
+        <a class="back" href="index.html">Back to portals</a>
+    </div>
+
+    <script>
+        const questions = [
+            "Choose one player you would betray first if the game forced you. Explain why.",
+            "Choose one player you would never betray. Explain why.",
+            "Choose one player you think would betray you first. Explain why.",
+            "Choose one player you think would stay loyal even if losing. Explain why.",
+            "Choose one player you would sacrifice to save yourself in this game. Explain why.",
+            "Choose one player you would sacrifice to save the group. Explain why.",
+            "Choose one player you would protect even if it costs you. Explain why.",
+            "Choose one player you would not protect if things got serious. Explain why.",
+            "Choose one player you trust the least right now. Explain why.",
+            "Choose one player whose loyalty feels uncertain. Explain why.",
+            "Choose one player who would switch sides if the reward was good enough.",
+            "Choose one player who would betray quietly, not loudly.",
+            "Choose one player who would betray with a smile.",
+            "Choose one player who would betray only if they felt betrayed first.",
+            "Choose one player who would betray because of pride.",
+            "Choose one player who would betray because of jealousy.",
+            "Choose one player who would betray because they want to win.",
+            "Choose one player who would betray because they are hurt.",
+            "Choose one player who would betray and still act innocent.",
+            "Choose one player who would never admit betrayal even if caught.",
+            "Who here would be the easiest to manipulate?",
+            "Who here would be the hardest to manipulate?",
+            "Who here would manipulate others without realizing it?",
+            "Who here would manipulate others and know exactly what they are doing?",
+            "Who here would betray the group in a survival game?",
+            "Who here would expose someone else's secret if angry?",
+            "Who here would use a secret as a weapon?",
+            "Who here would keep a secret even after a fight?",
+            "Who here would break loyalty for revenge?",
+            "Who here would break loyalty for attention?",
+            "Who here would break loyalty for power?",
+            "Who here would break loyalty to protect their ego?",
+            "Who here would choose winning over friendship?",
+            "Who here would choose pride over friendship?",
+            "Who here would choose comfort over loyalty?",
+            "Who here would choose honesty over loyalty?",
+            "Who here would choose loyalty over truth?",
+            "Who here would choose the group over one friend?",
+            "Who here would choose one friend over the group?",
+            "Who here would betray themselves just to please others?",
+            "Choose two players. Which one would betray first?",
+            "Choose two players. Which one is more loyal?",
+            "Choose two players. Which one is more dangerous when hurt?",
+            "Choose two players. Which one would keep a secret better?",
+            "Choose two players. Which one would expose the other first?",
+            "Choose two players. Which one would survive betrayal better?",
+            "Choose two players. Which one would forgive betrayal faster?",
+            "Choose two players. Which one would never forget betrayal?",
+            "Choose two players. Which one would be colder after betrayal?",
+            "Choose two players. Which one would take revenge smarter?",
+            "Choose one player. Steal 1 card from them, then explain why you chose them.",
+            "Choose one player. Make them lose 1 HP, then explain why you chose them.",
+            "Choose one player. Force them to discard 1 card, then explain why you chose them.",
+            "Choose one player. Protect them from the next negative effect, then explain why.",
+            "Choose one player. Give them 1 card from your hand, then explain why.",
+            "Choose one player. Ask them one brutal question about loyalty.",
+            "Choose one player. Ask them who they trust the least.",
+            "Choose one player. Ask them who they would betray first.",
+            "Choose one player. Ask them who they would protect first.",
+            "Choose one player. Ask them who they think is fake loyal.",
+            "What is one betrayal you would never forgive?",
+            "What is one betrayal you might forgive but never forget?",
+            "What kind of betrayal hurts you the most?",
+            "What kind of betrayal would make you become cold?",
+            "What kind of betrayal would make you seek revenge?",
+            "What kind of betrayal would make you walk away silently?",
+            "What is worse to you: being lied to or being replaced?",
+            "What is worse to you: being used or being ignored?",
+            "What is worse to you: public betrayal or private betrayal?",
+            "What is worse to you: betrayal by a friend or betrayal by someone you like?",
+            "Have you ever acted loyal while secretly feeling done with someone?",
+            "Have you ever stayed close to someone you no longer trusted?",
+            "Have you ever forgiven someone but treated them differently after?",
+            "Have you ever tested someone's loyalty without telling them?",
+            "Have you ever hidden resentment behind normal behavior?",
+            "Have you ever wanted someone to fail because they hurt your pride?",
+            "Have you ever been jealous of someone close to you?",
+            "Have you ever felt replaced by someone?",
+            "Have you ever acted unbothered while feeling betrayed?",
+            "Have you ever been the betrayer and justified it to yourself?",
+            "Who here could hurt you the most if they betrayed you?",
+            "Who here would you least expect betrayal from?",
+            "Who here would you most expect betrayal from?",
+            "Who here would make betrayal feel personal?",
+            "Who here would make betrayal feel predictable?",
+            "Who here would you confront if they betrayed you?",
+            "Who here would you silently cut off if they betrayed you?",
+            "Who here would you forgive too easily?",
+            "Who here would you never forgive?",
+            "Who here would you pretend to forgive while staying distant?",
+            "Who here do you think has betrayed someone's trust before?",
+            "Who here do you think has been betrayed badly before?",
+            "Who here do you think fears betrayal the most?",
+            "Who here do you think expects betrayal before it happens?",
+            "Who here do you think would rather betray first than be betrayed?",
+            "Who here do you think would become dangerous after betrayal?",
+            "Who here do you think would cry after betrayal but act strong?",
+            "Who here do you think would laugh after betrayal but plan revenge?",
+            "Who here do you think would never show how much betrayal hurt?",
+            "Who here do you think would change completely after betrayal?",
+            "If the group had to vote someone out, who would you vote for?",
+            "If the group had to save only one player, who would you save?",
+            "If the group had to sacrifice one player, who would you choose?",
+            "If the group had to expose one secret, who would be most afraid?",
+            "If the group had to split into two sides, who would you choose first?",
+            "If everyone here became enemies, who would you target first?",
+            "If everyone here became enemies, who would you avoid fighting?",
+            "If everyone here became enemies, who would secretly enjoy it?",
+            "If everyone here became enemies, who would betray their alliance first?",
+            "If everyone here became enemies, who would win through strategy?",
+            "Choose one player. What would make you stop trusting them?",
+            "Choose one player. What would make them stop trusting you?",
+            "Choose one player. What could break your bond with them?",
+            "Choose one player. What would make you feel betrayed by them?",
+            "Choose one player. What do you think would make them feel betrayed by you?",
+            "Choose one player. What is one line they should never cross with you?",
+            "Choose one player. What is one line you should never cross with them?",
+            "Choose one player. What would make you choose them over the group?",
+            "Choose one player. What would make you choose the group over them?",
+            "Choose one player. What truth could damage your connection with them?",
+            "Who here would betray for a card advantage?",
+            "Who here would betray for revenge?",
+            "Who here would betray for respect?",
+            "Who here would betray for love?",
+            "Who here would betray for attention?",
+            "Who here would betray because they felt ignored?",
+            "Who here would betray because they felt underestimated?",
+            "Who here would betray because they wanted control?",
+            "Who here would betray because they wanted to feel important?",
+            "Who here would betray because they hate losing?"
+        ];
+
+        let usedIndexes = [];
+
+        function openGate() {
+            if (usedIndexes.length === questions.length) {
+                usedIndexes = [];
+            }
+
+            let index;
+
+            do {
+                index = Math.floor(Math.random() * questions.length);
+            } while (usedIndexes.includes(index));
+
+            usedIndexes.push(index);
+
+            document.getElementById("question").innerText = questions[index];
+            document.getElementById("counter").innerText =
+                "Gate opened: " + usedIndexes.length + " / " + questions.length;
+        }
+    </script>
+</body>
+</html>

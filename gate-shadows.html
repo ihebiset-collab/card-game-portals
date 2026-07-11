@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gate of Shadows</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top, rgba(0, 229, 255, 0.18), transparent 32%),
+                radial-gradient(circle at bottom, rgba(70, 0, 120, 0.45), transparent 45%),
+                #030409;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 22px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 720px;
+            padding: 34px 24px;
+            border: 2px solid #8a2be2;
+            border-radius: 24px;
+            box-shadow:
+                0 0 30px rgba(138, 43, 226, 0.65),
+                inset 0 0 22px rgba(0, 229, 255, 0.10);
+            background: rgba(0, 0, 0, 0.76);
+        }
+
+        .tag {
+            color: #c59cff;
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #c59cff;
+            font-size: 44px;
+            margin: 0 0 10px;
+        }
+
+        .subtitle {
+            color: #eadcff;
+            margin-bottom: 28px;
+            font-size: 18px;
+            line-height: 1.4;
+        }
+
+        #questionBox {
+            border: 1px solid rgba(197, 156, 255, 0.55);
+            border-radius: 18px;
+            background: rgba(138, 43, 226, 0.09);
+            padding: 25px 18px;
+            margin: 25px 0;
+            min-height: 185px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #question {
+            font-size: 29px;
+            line-height: 1.38;
+            color: white;
+        }
+
+        button {
+            background: #c59cff;
+            color: #05070d;
+            border: none;
+            padding: 16px 32px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 14px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(197, 156, 255, 0.45);
+        }
+
+        button:hover {
+            background: #e2ccff;
+        }
+
+        .rule {
+            margin-top: 25px;
+            color: #eadcff;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .counter {
+            margin-top: 14px;
+            color: #c59cff;
+            font-size: 13px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 28px;
+            color: #c59cff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            #question {
+                font-size: 24px;
+            }
+
+            #questionBox {
+                min-height: 210px;
+            }
+
+            button {
+                font-size: 18px;
+                padding: 15px 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="tag">Portal Card</div>
+        <h1>Gate of Shadows</h1>
+
+        <div class="subtitle">
+            Open the gate. The shadow reveals what people hide.
+        </div>
+
+        <div id="questionBox">
+            <div id="question">Press the button to open the gate.</div>
+        </div>
+
+        <button onclick="openGate()">Open the Gate</button>
+
+        <div class="counter" id="counter"></div>
+
+        <div class="rule">
+            Rule: Answer honestly. Refuse, dodge, or give a fake answer → lose 1 HP or discard 1 card.
+        </div>
+
+        <a class="back" href="index.html">Back to portals</a>
+    </div>
+
+    <script>
+        const questions = [
+            "Who here hides their real emotions the best?",
+            "Who here pretends to be okay the most?",
+            "Who here has the darkest sense of humor?",
+            "Who here do you think has a side nobody really knows?",
+            "Who here acts confident but probably doubts themselves a lot?",
+            "Who here acts cold but is probably sensitive?",
+            "Who here acts kind but could become dangerous if betrayed?",
+            "Who here do you think has the most hidden anger?",
+            "Who here is most likely to hold a silent grudge?",
+            "Who here would forgive someone but never forget what happened?",
+            "Who here do you think has the biggest ego problem?",
+            "Who here do you think is secretly insecure?",
+            "Who here is most likely to hide jealousy behind jokes?",
+            "Who here seems peaceful but could explode one day?",
+            "Who here avoids confrontation until it becomes worse?",
+            "Who here uses humor to avoid serious feelings?",
+            "Who here hides pain behind sarcasm?",
+            "Who here do you think has the strongest mask?",
+            "Who here is hardest to understand emotionally?",
+            "Who here do you think feels more than they show?",
+            "Choose one player. What weakness do you think they hide?",
+            "Choose one player. What fear do you think controls them sometimes?",
+            "Choose one player. What truth do you think they avoid?",
+            "Choose one player. What do you think they pretend not to care about?",
+            "Choose one player. What do you think hurts their pride?",
+            "Choose one player. What do you think makes them defensive?",
+            "Choose one player. What kind of criticism would hurt them the most?",
+            "Choose one player. What do you think they secretly need to hear?",
+            "Choose one player. What do you think they are running from?",
+            "Choose one player. What do you think they are scared to lose?",
+            "Choose one player. What emotion do they hide the most?",
+            "Choose one player. What do they act like they have under control?",
+            "Choose one player. What do you think they overthink at night?",
+            "Choose one player. What do you think they are too proud to admit?",
+            "Choose one player. What do you think their biggest inner battle is?",
+            "Choose one player. What would make them dangerous if they stopped caring?",
+            "Choose one player. What would break their trust completely?",
+            "Choose one player. What do you think they judge themselves for?",
+            "Choose one player. What part of them do people misunderstand?",
+            "Choose one player. What is one shadow they need to face?",
+            "What is one thing you pretend does not affect you?",
+            "What is one emotion you hide because it makes you feel weak?",
+            "What is one truth about yourself that is hard to admit?",
+            "What is one weakness you hate seeing in yourself?",
+            "What is one flaw you notice in others because you also have it?",
+            "What is one thing that instantly makes you defensive?",
+            "What is one thing you avoid talking about?",
+            "What is one insecurity you try to cover with confidence?",
+            "What is one thing you fear people will discover about you?",
+            "What is one part of your personality you do not fully trust?",
+            "What is one thing you forgive in others but hate in yourself?",
+            "What is one mistake that still follows you mentally?",
+            "What is one moment where your pride made things worse?",
+            "What is one habit that quietly damages you?",
+            "What is one thought you keep coming back to?",
+            "What is one thing you know you need to change but keep delaying?",
+            "What is one thing you are scared to lose?",
+            "What is one thing you are scared to become?",
+            "What is one thing you hide because people would judge you?",
+            "What is one thing you act like you control but you actually struggle with?",
+            "Who here would notice if you were secretly not okay?",
+            "Who here would not notice at all?",
+            "Who here would you trust with your darker thoughts?",
+            "Who here would you avoid when you feel weak?",
+            "Who here would give comfort without judging?",
+            "Who here would judge but pretend they are helping?",
+            "Who here would understand your silence?",
+            "Who here would completely misread your silence?",
+            "Who here could hurt you emotionally if they wanted to?",
+            "Who here could help you heal if you let them?",
+            "Who here do you think has a hidden villain side?",
+            "Who here do you think has a hidden soft side?",
+            "Who here do you think would change completely after betrayal?",
+            "Who here do you think would become colder after heartbreak?",
+            "Who here do you think has been disappointed by people the most?",
+            "Who here do you think expects betrayal before it happens?",
+            "Who here do you think secretly wants revenge on someone?",
+            "Who here do you think would never admit they are jealous?",
+            "Who here do you think wants attention but hides it?",
+            "Who here do you think wants love but acts independent?",
+            "If everyone here had a shadow form, who would be the scariest?",
+            "If one player here secretly envied another, who would it be?",
+            "If one player here was secretly tired of pretending, who would it be?",
+            "If one player here had to confess their biggest flaw, who would struggle the most?",
+            "If one player here became your enemy, who would be the hardest to defeat?",
+            "If one player here knew your weakness, who would use it best?",
+            "If one player here had a secret revenge arc, who would it be?",
+            "If one player here was secretly lonely, who would it be?",
+            "If one player here was hiding pain, who would it be?",
+            "If one player here had the strongest inner darkness, who would it be?",
+            "Who here do you think smiles through disappointment?",
+            "Who here do you think hides sadness with attitude?",
+            "Who here do you think is afraid of being replaced?",
+            "Who here do you think is afraid of being ignored?",
+            "Who here do you think is afraid of not being enough?",
+            "Who here do you think needs validation the most?",
+            "Who here do you think pretends not to need anyone?",
+            "Who here do you think wants to be understood but does not explain themselves?",
+            "Who here do you think has the hardest time trusting people?",
+            "Who here do you think tests people before trusting them?"
+        ];
+
+        let usedIndexes = [];
+
+        function openGate() {
+            if (usedIndexes.length === questions.length) {
+                usedIndexes = [];
+            }
+
+            let index;
+
+            do {
+                index = Math.floor(Math.random() * questions.length);
+            } while (usedIndexes.includes(index));
+
+            usedIndexes.push(index);
+
+            document.getElementById("question").innerText = questions[index];
+            document.getElementById("counter").innerText =
+                "Gate opened: " + usedIndexes.length + " / " + questions.length;
+        }
+    </script>
+</body>
+</html>

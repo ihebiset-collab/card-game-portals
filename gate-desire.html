@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gate of Desire</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top, rgba(255, 45, 120, 0.24), transparent 32%),
+                radial-gradient(circle at bottom, rgba(138, 43, 226, 0.26), transparent 45%),
+                #06030a;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 22px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 720px;
+            padding: 34px 24px;
+            border: 2px solid #ff2d78;
+            border-radius: 24px;
+            box-shadow:
+                0 0 30px rgba(255, 45, 120, 0.65),
+                inset 0 0 22px rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.76);
+        }
+
+        .tag {
+            color: #ff9ac2;
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #ff2d78;
+            font-size: 44px;
+            margin: 0 0 10px;
+        }
+
+        .subtitle {
+            color: #ffd8e8;
+            margin-bottom: 28px;
+            font-size: 18px;
+            line-height: 1.4;
+        }
+
+        #questionBox {
+            border: 1px solid rgba(255, 45, 120, 0.60);
+            border-radius: 18px;
+            background: rgba(255, 45, 120, 0.09);
+            padding: 25px 18px;
+            margin: 25px 0;
+            min-height: 185px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #question {
+            font-size: 29px;
+            line-height: 1.38;
+            color: white;
+        }
+
+        button {
+            background: #ff2d78;
+            color: #05070d;
+            border: none;
+            padding: 16px 32px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 14px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 45, 120, 0.45);
+        }
+
+        button:hover {
+            background: #ff9ac2;
+        }
+
+        .rule {
+            margin-top: 25px;
+            color: #ffd8e8;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .counter {
+            margin-top: 14px;
+            color: #ff9ac2;
+            font-size: 13px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 28px;
+            color: #ff9ac2;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            #question {
+                font-size: 24px;
+            }
+
+            #questionBox {
+                min-height: 210px;
+            }
+
+            button {
+                font-size: 18px;
+                padding: 15px 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="tag">Portal Card</div>
+        <h1>Gate of Desire</h1>
+
+        <div class="subtitle">
+            Open the gate. Desire reveals what pride tries to hide.
+        </div>
+
+        <div id="questionBox">
+            <div id="question">Press the button to open the gate.</div>
+        </div>
+
+        <button onclick="openGate()">Open the Gate</button>
+
+        <div class="counter" id="counter"></div>
+
+        <div class="rule">
+            Rule: Answer honestly. Refuse, dodge, or give a fake answer → lose 1 HP or discard 1 card.
+        </div>
+
+        <a class="back" href="index.html">Back to portals</a>
+    </div>
+
+    <script>
+        const questions = [
+            "Who here has the most attractive confidence?",
+            "Who here gets attention without trying?",
+            "Who here tries too hard to get attention?",
+            "Who here secretly enjoys being watched?",
+            "Who here would you want to impress the most?",
+            "Who here would make you nervous if they judged you?",
+            "Who here would you hate disappointing?",
+            "Who here would you want approval from, even if you deny it?",
+            "Who here has the kind of energy that is hard to ignore?",
+            "Who here could make someone catch feelings without trying?",
+            "Who here do you think enjoys being desired?",
+            "Who here do you think hides how much they want attention?",
+            "Who here do you think gets jealous but acts unbothered?",
+            "Who here do you think wants to be chosen first?",
+            "Who here do you think hates feeling replaceable?",
+            "Who here do you think wants to be admired more than they admit?",
+            "Who here do you think wants power over people emotionally?",
+            "Who here do you think likes being chased?",
+            "Who here do you think would never chase but wants to be chased?",
+            "Who here do you think is secretly competitive for attention?",
+            "Choose one player. What kind of attention do you think they secretly enjoy?",
+            "Choose one player. What do you think they want but never say clearly?",
+            "Choose one player. What do you think makes them feel powerful?",
+            "Choose one player. What do you think makes them feel wanted?",
+            "Choose one player. What do you think makes them jealous?",
+            "Choose one player. What do you think they crave emotionally?",
+            "Choose one player. What do you think they are scared to ask for?",
+            "Choose one player. What do you think they want people to notice about them?",
+            "Choose one player. What do you think they want to be praised for?",
+            "Choose one player. What do you think they secretly want to prove?",
+            "Choose one player. What desire could distract them from their goals?",
+            "Choose one player. What temptation would be hardest for them to resist?",
+            "Choose one player. What do you think they want from the group?",
+            "Choose one player. What do you think they wish people understood about their heart?",
+            "Choose one player. What would make them feel chosen?",
+            "Choose one player. What would make them feel rejected?",
+            "Choose one player. What kind of person do you think they are drawn to?",
+            "Choose one player. What kind of person should they avoid?",
+            "Choose one player. What do you think they confuse with love or loyalty?",
+            "Choose one player. What do you think they secretly envy in others?",
+            "What kind of attention do you secretly enjoy?",
+            "What compliment affects you more than you admit?",
+            "What kind of person makes you lose focus?",
+            "What kind of person makes you want to improve yourself?",
+            "What kind of person brings out your ego?",
+            "What kind of person brings out your soft side?",
+            "What kind of person makes you feel chosen?",
+            "What kind of person makes you feel ignored?",
+            "What kind of person makes you jealous?",
+            "What kind of person makes you competitive?",
+            "What do you want people to notice about you first?",
+            "What do you wish people admired about you?",
+            "What do you secretly want to be known for?",
+            "What do you want badly but rarely say out loud?",
+            "What desire could ruin your discipline if you let it?",
+            "What desire are you trying to control right now?",
+            "What do you chase even when you pretend you do not?",
+            "What do you crave when your pride is hurt?",
+            "What makes you feel powerful?",
+            "What makes you feel weak?",
+            "What kind of rejection would hurt your pride the most?",
+            "What kind of praise would make your day instantly?",
+            "What do you wish someone would say to you honestly?",
+            "What do you wish someone would notice without you explaining?",
+            "What makes you feel replaceable?",
+            "What makes you feel unforgettable?",
+            "What is one thing you want but are scared people will judge?",
+            "What is one thing you envy in someone else?",
+            "What is one thing you want to achieve so people finally respect you?",
+            "What is one thing you would hate seeing someone else get before you?",
+            "Who here would be the hardest for you to ignore?",
+            "Who here would you not want to compete against for attention?",
+            "Who here would you not want to be compared to?",
+            "Who here do you think would win most people over easily?",
+            "Who here do you think has dangerous charm?",
+            "Who here do you think knows exactly how to get attention?",
+            "Who here do you think pretends not to care about attention?",
+            "Who here do you think becomes different when they like someone?",
+            "Who here do you think loses control when jealous?",
+            "Who here do you think hides attraction badly?",
+            "Who here do you think hides attraction too well?",
+            "Who here would you choose to hype you up before a big moment?",
+            "Who here would you choose to humble you if your ego got too big?",
+            "Who here would you want watching you succeed?",
+            "Who here would you not want watching you fail?",
+            "Who here would make success feel more satisfying if they saw it?",
+            "Who here would make failure feel more painful if they saw it?",
+            "Who here do you secretly want to prove something to?",
+            "Who here do you think secretly wants to prove something to you?",
+            "Who here would you want to impress with your future success?",
+            "Who here would you want to regret underestimating you?",
+            "If one player here secretly wanted more attention, who would it be?",
+            "If one player here secretly wanted to be admired, who would it be?",
+            "If one player here was jealous but hiding it, who would it be?",
+            "If one player here had the strongest desire to win, who would it be?",
+            "If one player here wanted to be the main character, who would it be?",
+            "If one player here wanted power over the group, who would it be?",
+            "If one player here wanted to be loved but acted independent, who would it be?",
+            "If one player here wanted to be chased, who would it be?",
+            "If one player here was secretly afraid of being replaced, who would it be?",
+            "If one player here was secretly addicted to validation, who would it be?",
+            "Choose two players. Which one wants attention more?",
+            "Choose two players. Which one is better at hiding desire?",
+            "Choose two players. Which one gets jealous faster?",
+            "Choose two players. Which one would win a charm battle?",
+            "Choose two players. Which one would be harder to forget?",
+            "Choose two players. Which one has stronger ambition?",
+            "Choose two players. Which one would sacrifice more to win?",
+            "Choose two players. Which one cares more about being respected?",
+            "Choose two players. Which one would secretly hate losing to the other?",
+            "Choose two players. Which one would handle rejection worse?"
+        ];
+
+        let usedIndexes = [];
+
+        function openGate() {
+            if (usedIndexes.length === questions.length) {
+                usedIndexes = [];
+            }
+
+            let index;
+
+            do {
+                index = Math.floor(Math.random() * questions.length);
+            } while (usedIndexes.includes(index));
+
+            usedIndexes.push(index);
+
+            document.getElementById("question").innerText = questions[index];
+            document.getElementById("counter").innerText =
+                "Gate opened: " + usedIndexes.length + " / " + questions.length;
+        }
+    </script>
+</body>
+</html>

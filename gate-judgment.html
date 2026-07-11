@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gate of Judgment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top, rgba(255, 215, 0, 0.24), transparent 32%),
+                radial-gradient(circle at bottom, rgba(138, 43, 226, 0.24), transparent 45%),
+                #080604;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 22px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 720px;
+            padding: 34px 24px;
+            border: 2px solid #ffd700;
+            border-radius: 24px;
+            box-shadow:
+                0 0 30px rgba(255, 215, 0, 0.60),
+                inset 0 0 22px rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.76);
+        }
+
+        .tag {
+            color: #ffe98a;
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #ffd700;
+            font-size: 44px;
+            margin: 0 0 10px;
+        }
+
+        .subtitle {
+            color: #fff3b8;
+            margin-bottom: 28px;
+            font-size: 18px;
+            line-height: 1.4;
+        }
+
+        #questionBox {
+            border: 1px solid rgba(255, 215, 0, 0.60);
+            border-radius: 18px;
+            background: rgba(255, 215, 0, 0.08);
+            padding: 25px 18px;
+            margin: 25px 0;
+            min-height: 185px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #question {
+            font-size: 29px;
+            line-height: 1.38;
+            color: white;
+        }
+
+        button {
+            background: #ffd700;
+            color: #080604;
+            border: none;
+            padding: 16px 32px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 14px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.45);
+        }
+
+        button:hover {
+            background: #fff3a0;
+        }
+
+        .rule {
+            margin-top: 25px;
+            color: #fff3b8;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .counter {
+            margin-top: 14px;
+            color: #ffe98a;
+            font-size: 13px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 28px;
+            color: #ffe98a;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            #question {
+                font-size: 24px;
+            }
+
+            #questionBox {
+                min-height: 210px;
+            }
+
+            button {
+                font-size: 18px;
+                padding: 15px 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="tag">Portal Card</div>
+        <h1>Gate of Judgment</h1>
+
+        <div class="subtitle">
+            Open the gate. Answer. Then the table decides if you are worthy.
+        </div>
+
+        <div id="questionBox">
+            <div id="question">Press the button to open the gate.</div>
+        </div>
+
+        <button onclick="openGate()">Open the Gate</button>
+
+        <div class="counter" id="counter"></div>
+
+        <div class="rule">
+            Rule: After the answer, the group votes. Worthy → draw 1 card. Unworthy → lose 1 HP or discard 1 card.
+        </div>
+
+        <a class="back" href="index.html">Back to portals</a>
+    </div>
+
+    <script>
+        const questions = [
+            "Who here deserves the most respect at this table? Defend your answer.",
+            "Who here deserves to be humbled the most? Explain why.",
+            "Who here acts stronger than they really are?",
+            "Who here is stronger than people realize?",
+            "Who here talks like a leader but would fail under pressure?",
+            "Who here would actually lead well under pressure?",
+            "Who here has the most fake confidence?",
+            "Who here has the most real confidence?",
+            "Who here is the most likely to fold when things get serious?",
+            "Who here is the most likely to surprise everyone when things get serious?",
+            "Who here gives the most main character energy?",
+            "Who here gives background character energy but refuses to admit it?",
+            "Who here is most likely to become dangerous if underestimated?",
+            "Who here is most likely to overestimate themselves?",
+            "Who here is most likely to underestimate themselves?",
+            "Who here deserves more recognition?",
+            "Who here gets more credit than they deserve?",
+            "Who here is the most disciplined?",
+            "Who here has potential but wastes it?",
+            "Who here needs the biggest reality check?",
+            "Choose one player. What should the table judge them for?",
+            "Choose one player. What should the table respect them for?",
+            "Choose one player. What is their greatest strength?",
+            "Choose one player. What is their biggest weakness?",
+            "Choose one player. What makes them hard to trust?",
+            "Choose one player. What makes them worthy of trust?",
+            "Choose one player. What makes them dangerous?",
+            "Choose one player. What makes them predictable?",
+            "Choose one player. What makes them unpredictable?",
+            "Choose one player. What do they need to prove?",
+            "Choose one player. What do they pretend they have already proven?",
+            "Choose one player. What do they need to stop pretending?",
+            "Choose one player. What truth about them would the table agree with?",
+            "Choose one player. What truth about them would they deny?",
+            "Choose one player. What is one thing they should be proud of?",
+            "Choose one player. What is one thing they should improve immediately?",
+            "Choose one player. What would make them lose respect?",
+            "Choose one player. What would make them gain respect?",
+            "Choose one player. What do they do that people secretly notice?",
+            "Choose one player. What do they do that people secretly judge?",
+            "Who here would win a popularity vote?",
+            "Who here would lose a popularity vote but pretend not to care?",
+            "Who here is most likely to be secretly judged by everyone?",
+            "Who here judges others the most?",
+            "Who here acts innocent but judges silently?",
+            "Who here says what others are scared to say?",
+            "Who here avoids saying the truth to keep peace?",
+            "Who here creates tension without realizing it?",
+            "Who here enjoys tension more than they admit?",
+            "Who here would survive a public roast the best?",
+            "Who here would take a public roast personally?",
+            "Who here can dish it but cannot take it?",
+            "Who here handles criticism the best?",
+            "Who here handles criticism the worst?",
+            "Who here needs praise more than they admit?",
+            "Who here gets defensive when exposed?",
+            "Who here accepts the truth even when it hurts?",
+            "Who here would argue even if they know they are wrong?",
+            "Who here would apologize first?",
+            "Who here would rather lose a friend than apologize first?",
+            "What is one thing the group would judge you for if they knew everything?",
+            "What is one thing you think people misunderstand about you?",
+            "What is one thing you deserve more credit for?",
+            "What is one thing you get too much credit for?",
+            "What is one thing you need to be called out on?",
+            "What is one thing you hate being judged for?",
+            "What is one truth about yourself that would make the table vote unworthy?",
+            "What is one truth about yourself that would make the table vote worthy?",
+            "What is one flaw you judge in others but also have yourself?",
+            "What is one standard you hold others to but struggle to meet?",
+            "What is one thing you pretend is not a problem?",
+            "What is one part of your reputation you care about too much?",
+            "What do you want people at this table to respect about you?",
+            "What do you fear people at this table secretly judge you for?",
+            "What is one thing you would change about how people see you?",
+            "What is one judgment about you that would hurt because it might be true?",
+            "Who here would you trust to judge you fairly?",
+            "Who here would judge you too harshly?",
+            "Who here would defend you even if you were wrong?",
+            "Who here would call you out even if they liked you?",
+            "Who here would secretly enjoy seeing you humbled?",
+            "Who here would secretly enjoy seeing you succeed?",
+            "Who here would clap for you in public but doubt you in private?",
+            "Who here would support you even when nobody else does?",
+            "Who here would switch sides if the group turned against you?",
+            "Who here would stay loyal if the group judged you?",
+            "Who here has the strongest moral code?",
+            "Who here breaks their own principles the most?",
+            "Who here acts like they have principles but bends them when convenient?",
+            "Who here would choose loyalty over truth?",
+            "Who here would choose truth over loyalty?",
+            "Who here would choose winning over loyalty?",
+            "Who here would choose reputation over friendship?",
+            "Who here would choose pride over peace?",
+            "Who here would choose silence over honesty?",
+            "Who here would choose honesty even if it destroys the mood?",
+            "If the table had to crown one worthy player, who would it be?",
+            "If the table had to mark one unworthy player, who would it be?",
+            "If one player here had to defend their reputation, who would struggle most?",
+            "If one player here had to confess their biggest flaw, who would avoid it?",
+            "If one player here had to prove loyalty, who would fail?",
+            "If one player here had to prove courage, who would fail?",
+            "If one player here had to prove honesty, who would fail?",
+            "If one player here had to prove discipline, who would fail?",
+            "If one player here had to prove emotional maturity, who would fail?",
+            "If one player here had to prove they are not fake, who would struggle?",
+            "Choose two players. Which one is more trustworthy?",
+            "Choose two players. Which one has more pride?",
+            "Choose two players. Which one would handle power worse?",
+            "Choose two players. Which one is more likely to betray first?",
+            "Choose two players. Which one deserves more respect?",
+            "Choose two players. Which one needs more growth?",
+            "Choose two players. Which one would win a public vote?",
+            "Choose two players. Which one would win a private vote?",
+            "Choose two players. Which one is more dangerous as an enemy?",
+            "Choose two players. Which one would be harder to expose?"
+        ];
+
+        let usedIndexes = [];
+
+        function openGate() {
+            if (usedIndexes.length === questions.length) {
+                usedIndexes = [];
+            }
+
+            let index;
+
+            do {
+                index = Math.floor(Math.random() * questions.length);
+            } while (usedIndexes.includes(index));
+
+            usedIndexes.push(index);
+
+            document.getElementById("question").innerText = questions[index];
+            document.getElementById("counter").innerText =
+                "Gate opened: " + usedIndexes.length + " / " + questions.length;
+        }
+    </script>
+</body>
+</html>

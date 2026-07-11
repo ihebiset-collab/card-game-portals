@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gate of Destiny</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top, rgba(0, 229, 255, 0.24), transparent 32%),
+                radial-gradient(circle at bottom, rgba(255, 215, 0, 0.18), transparent 45%),
+                radial-gradient(circle at center, rgba(138, 43, 226, 0.20), transparent 55%),
+                #03050d;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 22px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 720px;
+            padding: 34px 24px;
+            border: 2px solid #00e5ff;
+            border-radius: 24px;
+            box-shadow:
+                0 0 30px rgba(0, 229, 255, 0.60),
+                0 0 50px rgba(255, 215, 0, 0.18),
+                inset 0 0 22px rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.78);
+        }
+
+        .tag {
+            color: #b8f7ff;
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #00e5ff;
+            font-size: 44px;
+            margin: 0 0 10px;
+        }
+
+        .subtitle {
+            color: #e3fbff;
+            margin-bottom: 28px;
+            font-size: 18px;
+            line-height: 1.4;
+        }
+
+        #questionBox {
+            border: 1px solid rgba(0, 229, 255, 0.60);
+            border-radius: 18px;
+            background: rgba(0, 229, 255, 0.08);
+            padding: 25px 18px;
+            margin: 25px 0;
+            min-height: 185px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #question {
+            font-size: 29px;
+            line-height: 1.38;
+            color: white;
+        }
+
+        button {
+            background: #00e5ff;
+            color: #03050d;
+            border: none;
+            padding: 16px 32px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 14px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.45);
+        }
+
+        button:hover {
+            background: #8ff6ff;
+        }
+
+        .rule {
+            margin-top: 25px;
+            color: #e3fbff;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .counter {
+            margin-top: 14px;
+            color: #8ff6ff;
+            font-size: 13px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 28px;
+            color: #8ff6ff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            #question {
+                font-size: 24px;
+            }
+
+            #questionBox {
+                min-height: 210px;
+            }
+
+            button {
+                font-size: 18px;
+                padding: 15px 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="tag">Portal Card</div>
+        <h1>Gate of Destiny</h1>
+
+        <div class="subtitle">
+            Open the gate. Destiny does not explain itself.
+        </div>
+
+        <div id="questionBox">
+            <div id="question">Press the button to open the gate.</div>
+        </div>
+
+        <button onclick="openGate()">Open the Gate</button>
+
+        <div class="counter" id="counter"></div>
+
+        <div class="rule">
+            Rule: Obey the result instantly. If it asks a question, answer honestly. Refuse → lose 2 HP or discard 2 cards.
+        </div>
+
+        <a class="back" href="index.html">Back to portals</a>
+    </div>
+
+    <script>
+        const questions = [
+            "Draw 1 card, then reveal one truth about the player on your left.",
+            "Lose 1 HP, then choose one player and say why they deserved to avoid this fate.",
+            "Gain 1 HP, then choose one player who probably needed it more than you.",
+            "Give 1 HP to the player you trust the most. Explain why.",
+            "Make one player lose 1 HP. Explain why destiny chose them.",
+            "Force one player to discard 1 card. Explain why you chose them.",
+            "Steal 1 card from the player you trust the least.",
+            "Give one card from your hand to the player you respect the most.",
+            "Swap one random card with the player you think is most unpredictable.",
+            "Reveal one card from your hand, then explain why it fits your personality.",
+            "Choose one player. They may ask you any one question, and you must answer.",
+            "Choose one player. Ask them any one question, and they must answer.",
+            "Choose one player. They decide if you gain 1 HP or lose 1 HP.",
+            "Choose one player. They decide if you draw 1 card or discard 1 card.",
+            "Choose one player. If they trust you, draw 1 card. If not, lose 1 HP.",
+            "Choose one player. If they think you answered honestly, gain 1 HP. If not, discard 1 card.",
+            "Choose two players. They must vote whether you are worthy or unworthy.",
+            "Choose two players. Which one would destiny favor more? Explain why.",
+            "Choose two players. Which one would betray destiny to survive?",
+            "Choose two players. Which one would be more dangerous with power?",
+            "Who here would destiny protect?",
+            "Who here would destiny punish?",
+            "Who here would survive because of luck, not skill?",
+            "Who here would lose because of pride, not weakness?",
+            "Who here would win even if everyone doubted them?",
+            "Who here would fail even after everyone believed in them?",
+            "Who here acts like they control destiny but actually fears uncertainty?",
+            "Who here would panic if they lost control?",
+            "Who here would adapt fastest if everything changed?",
+            "Who here would collapse if their plan failed?",
+            "Who here is most likely to turn bad luck into motivation?",
+            "Who here is most likely to blame destiny instead of themselves?",
+            "Who here secretly waits for life to choose for them?",
+            "Who here creates their own destiny instead of waiting?",
+            "Who here is most likely to ruin a good opportunity?",
+            "Who here is most likely to waste their potential?",
+            "Who here is most likely to become powerful later in life?",
+            "Who here is most likely to surprise everyone one day?",
+            "Who here would you bet on if everyone had 5 years to become successful?",
+            "Who here would you not bet on unless they changed?",
+            "Choose one player. What destiny do you think they are heading toward?",
+            "Choose one player. What future do you think they secretly want?",
+            "Choose one player. What future do you think they fear?",
+            "Choose one player. What is one decision that could change their life?",
+            "Choose one player. What could destroy their progress?",
+            "Choose one player. What could unlock their full potential?",
+            "Choose one player. What habit is blocking their destiny?",
+            "Choose one player. What strength could save them?",
+            "Choose one player. What weakness could ruin them?",
+            "Choose one player. What do you think they are destined to become if they do not change?",
+            "What is one choice you made that changed your path?",
+            "What is one choice you avoided that still follows you?",
+            "What is one opportunity you wasted?",
+            "What is one opportunity you are scared to take?",
+            "What is one thing you know you must do, but keep delaying?",
+            "What is one sign that you are not living the way you should?",
+            "What is one thing you keep blaming on luck but is actually your fault?",
+            "What is one thing you call destiny because you are scared to choose?",
+            "What is one future you secretly want but rarely admit?",
+            "What is one future you fear more than failure?",
+            "What is one version of yourself you are scared to become?",
+            "What is one version of yourself you are trying to kill?",
+            "What is one version of yourself you want to protect?",
+            "What is one part of your life that needs a reset?",
+            "What is one part of your life that needs discipline, not luck?",
+            "What is one dream you are embarrassed to say out loud?",
+            "What is one goal you want people to take seriously?",
+            "What is one goal people would laugh at if you said it honestly?",
+            "What is one thing you want so badly it scares you?",
+            "What is one thing you fear losing if you actually succeed?",
+            "If destiny gave you one enemy at this table, who would it be?",
+            "If destiny gave you one ally at this table, who would it be?",
+            "If destiny gave you one rival at this table, who would it be?",
+            "If destiny gave you one protector at this table, who would it be?",
+            "If destiny gave you one judge at this table, who would it be?",
+            "If destiny gave you one person to learn from, who would it be?",
+            "If destiny forced you to trust one player, who would you choose?",
+            "If destiny forced you to betray one player, who would you choose?",
+            "If destiny forced you to save one player, who would you choose?",
+            "If destiny forced you to expose one player, who would you choose?",
+            "The table chooses one player. That player asks you a brutal question.",
+            "The table chooses one player. You must give them one honest warning.",
+            "The table chooses one player. You must give them one honest compliment.",
+            "The table chooses one player. You must say what makes them dangerous.",
+            "The table chooses one player. You must say what makes them weak.",
+            "The table chooses one player. You must say what future you see for them.",
+            "The table chooses one player. They gain 1 HP if your answer feels honest.",
+            "The table chooses one player. They lose 1 HP if your answer feels fake.",
+            "The table chooses one player. You must reveal whether you trust them or not.",
+            "The table chooses one player. You must say if they would be friend, rival, or enemy in your story.",
+            "Choose one player. If they forgive easily, they gain 1 HP. If they hold grudges, they lose 1 HP.",
+            "Choose one player. If they admit one weakness, they draw 1 card.",
+            "Choose one player. If they refuse to answer your question, they lose 1 HP.",
+            "Choose one player. If they ask you a question you cannot answer, you discard 1 card.",
+            "Choose one player. If they expose a truth about you, they draw 1 card.",
+            "Choose one player. If you expose a truth about them, you draw 1 card.",
+            "Choose one player. You both answer: what could destroy your bond?",
+            "Choose one player. You both answer: what makes you dangerous when hurt?",
+            "Choose one player. You both answer: who trusts people less?",
+            "Choose one player. You both answer: who has more pride?",
+            "Everyone points to the player most likely to win in life. That player draws 1 card.",
+            "Everyone points to the player most likely to waste potential. That player loses 1 HP.",
+            "Everyone points to the player most likely to betray first. That player must explain themselves.",
+            "Everyone points to the player most likely to hide pain. That player may gain 1 HP if they answer honestly.",
+            "Everyone points to the player with the strongest ego. That player must reveal one insecurity.",
+            "Everyone points to the player with the strongest loyalty. That player draws 1 card.",
+            "Everyone points to the player with the most chaotic energy. That player opens the gate again.",
+            "Everyone points to the player with the most mysterious energy. That player answers one question from the table.",
+            "Everyone points to the player who needs a wake-up call. That player must accept one honest warning.",
+            "Everyone points to the player who would become the final boss. That player gains 1 HP.",
+            "Skip your next turn unless you answer: what truth are you avoiding right now?",
+            "Draw 2 cards unless the table votes your last answer was fake.",
+            "Lose 1 HP unless you compliment the player you have judged the most.",
+            "Gain 1 HP if you admit one thing you envy about another player.",
+            "Discard 1 card unless you tell the table who intimidates you the most.",
+            "Steal 1 card if you reveal one fear without laughing it off.",
+            "Choose someone to gain 1 HP, then say why destiny should protect them.",
+            "Choose someone to lose 1 HP, then say why destiny should test them.",
+            "Choose someone to draw 1 card, then say what power they have.",
+            "Choose someone to discard 1 card, then say what weakness they need to face.",
+            "Ask the player on your left one question about loyalty.",
+            "Ask the player on your right one question about jealousy.",
+            "Ask the player across from you one question about pride.",
+            "Ask the quietest player one question about hidden ambition.",
+            "Ask the loudest player one question about insecurity.",
+            "Ask the player you trust most one question about betrayal.",
+            "Ask the player you trust least one question about truth.",
+            "Ask the player you respect most one question about weakness.",
+            "Ask the player you fear as a rival one question about power.",
+            "Ask any player one question they cannot answer with yes or no."
+        ];
+
+        let usedIndexes = [];
+
+        function openGate() {
+            if (usedIndexes.length === questions.length) {
+                usedIndexes = [];
+            }
+
+            let index;
+
+            do {
+                index = Math.floor(Math.random() * questions.length);
+            } while (usedIndexes.includes(index));
+
+            usedIndexes.push(index);
+
+            document.getElementById("question").innerText = questions[index];
+            document.getElementById("counter").innerText =
+                "Gate opened: " + usedIndexes.length + " / " + questions.length;
+        }
+    </script>
+</body>
+</html>

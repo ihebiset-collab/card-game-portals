@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gate of Courage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top, rgba(255, 120, 0, 0.26), transparent 32%),
+                radial-gradient(circle at bottom, rgba(0, 229, 255, 0.18), transparent 45%),
+                #080401;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 22px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 720px;
+            padding: 34px 24px;
+            border: 2px solid #ff7a00;
+            border-radius: 24px;
+            box-shadow:
+                0 0 30px rgba(255, 122, 0, 0.65),
+                inset 0 0 22px rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.78);
+        }
+
+        .tag {
+            color: #ffc38a;
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #ff7a00;
+            font-size: 44px;
+            margin: 0 0 10px;
+        }
+
+        .subtitle {
+            color: #ffe1c2;
+            margin-bottom: 28px;
+            font-size: 18px;
+            line-height: 1.4;
+        }
+
+        #questionBox {
+            border: 1px solid rgba(255, 122, 0, 0.60);
+            border-radius: 18px;
+            background: rgba(255, 122, 0, 0.08);
+            padding: 25px 18px;
+            margin: 25px 0;
+            min-height: 185px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #question {
+            font-size: 29px;
+            line-height: 1.38;
+            color: white;
+        }
+
+        button {
+            background: #ff7a00;
+            color: #080401;
+            border: none;
+            padding: 16px 32px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 14px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 122, 0, 0.45);
+        }
+
+        button:hover {
+            background: #ffc38a;
+        }
+
+        .rule {
+            margin-top: 25px;
+            color: #ffe1c2;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .counter {
+            margin-top: 14px;
+            color: #ffc38a;
+            font-size: 13px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 28px;
+            color: #ffc38a;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            #question {
+                font-size: 24px;
+            }
+
+            #questionBox {
+                min-height: 210px;
+            }
+
+            button {
+                font-size: 18px;
+                padding: 15px 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="tag">Portal Card</div>
+        <h1>Gate of Courage</h1>
+
+        <div class="subtitle">
+            Open the gate. Do what pride, fear, or ego tries to avoid.
+        </div>
+
+        <div id="questionBox">
+            <div id="question">Press the button to open the gate.</div>
+        </div>
+
+        <button onclick="openGate()">Open the Gate</button>
+
+        <div class="counter" id="counter"></div>
+
+        <div class="rule">
+            Rule: Complete the prompt honestly. Refuse, dodge, or give a fake answer → lose 1 HP or discard 1 card.
+        </div>
+
+        <a class="back" href="index.html">Back to portals</a>
+    </div>
+
+    <script>
+        const questions = [
+            "Choose one player and tell them one honest thing you respect about them.",
+            "Choose one player and tell them one truth you usually avoid saying.",
+            "Choose one player and give them one honest warning.",
+            "Choose one player and tell them what makes them dangerous.",
+            "Choose one player and tell them what makes them weak.",
+            "Choose one player and tell them what they need to improve.",
+            "Choose one player and tell them what you think they are afraid of.",
+            "Choose one player and tell them what you think they are hiding.",
+            "Choose one player and tell them what you think they deserve more of.",
+            "Choose one player and tell them what you think they should stop tolerating.",
+            "Choose one player and ask them the question you are scared to ask.",
+            "Choose one player and let them ask you one direct question.",
+            "Choose one player and answer one question from them without defending yourself.",
+            "Choose one player and admit one thing you envy about them.",
+            "Choose one player and admit one thing they do better than you.",
+            "Choose one player and admit one thing about them that intimidates you.",
+            "Choose one player and admit whether you trust them or not.",
+            "Choose one player and admit whether you would choose them as an ally or rival.",
+            "Choose one player and say what would make you lose respect for them.",
+            "Choose one player and say what would make you respect them more.",
+            "Who here are you most afraid to disappoint? Explain why.",
+            "Who here are you most afraid to be judged by? Explain why.",
+            "Who here would you hate losing to the most? Explain why.",
+            "Who here would you hate being compared to? Explain why.",
+            "Who here would you struggle to confront directly? Explain why.",
+            "Who here would you avoid arguing with because they might expose you?",
+            "Who here makes you feel like you need to prove yourself?",
+            "Who here makes you feel seen in a way that scares you?",
+            "Who here would be hardest to apologize to?",
+            "Who here deserves an apology from someone at this table?",
+            "Say one thing you are scared people here might notice about you.",
+            "Say one thing you act confident about but still doubt.",
+            "Say one thing you need to change but keep delaying.",
+            "Say one goal you want but are scared people will laugh at.",
+            "Say one dream you hide because it feels too big.",
+            "Say one truth about yourself without turning it into a joke.",
+            "Say one thing you are tired of pretending does not hurt.",
+            "Say one insecurity you usually hide.",
+            "Say one fear you usually avoid talking about.",
+            "Say one weakness you are working on.",
+            "Look at one player and say one thing you never had the courage to say.",
+            "Look at one player and tell them what you think their strongest quality is.",
+            "Look at one player and tell them what you think their biggest blind spot is.",
+            "Look at one player and tell them what kind of future you see for them.",
+            "Look at one player and tell them what they should never forget about themselves.",
+            "Look at one player and tell them what they need to hear right now.",
+            "Look at one player and tell them why they are underestimated.",
+            "Look at one player and tell them why they might be overestimating themselves.",
+            "Look at one player and tell them what makes them hard to read.",
+            "Look at one player and tell them what makes them unforgettable.",
+            "Let the table ask you one question about pride.",
+            "Let the table ask you one question about jealousy.",
+            "Let the table ask you one question about betrayal.",
+            "Let the table ask you one question about fear.",
+            "Let the table ask you one question about desire.",
+            "Let the table ask you one question about your past.",
+            "Let the table ask you one question about your future.",
+            "Let the table ask you one question about your weakness.",
+            "Let the table ask you one question about your ego.",
+            "Let the table ask you one question about your reputation.",
+            "Choose two players and say which one you would trust more under pressure.",
+            "Choose two players and say which one scares you more as a rival.",
+            "Choose two players and say which one has more courage.",
+            "Choose two players and say which one hides fear better.",
+            "Choose two players and say which one would face the truth faster.",
+            "Choose two players and say which one would avoid confrontation longer.",
+            "Choose two players and say which one would handle rejection better.",
+            "Choose two players and say which one would handle betrayal worse.",
+            "Choose two players and say which one would become stronger after failure.",
+            "Choose two players and say which one would break first under pressure.",
+            "Ask the player on your left what they think your biggest weakness is.",
+            "Ask the player on your right what they think your biggest strength is.",
+            "Ask the quietest player what they really think about you.",
+            "Ask the loudest player one question they cannot dodge.",
+            "Ask the player you trust most what they think you need to hear.",
+            "Ask the player you trust least what they think you are hiding.",
+            "Ask the player you respect most how you could improve.",
+            "Ask the player you fear as a rival what makes you dangerous.",
+            "Ask the player you understand least what they think of you.",
+            "Ask any player to judge your last answer as brave or fake.",
+            "Admit one thing you are jealous of without explaining it away.",
+            "Admit one thing you regret saying to someone.",
+            "Admit one thing you regret not saying to someone.",
+            "Admit one moment where you were a coward.",
+            "Admit one moment where pride controlled you.",
+            "Admit one moment where fear made you silent.",
+            "Admit one moment where ego made you act cold.",
+            "Admit one moment where you acted like you did not care but did.",
+            "Admit one moment where you wanted attention but hid it.",
+            "Admit one moment where you wanted someone to choose you.",
+            "What is one conversation you are avoiding?",
+            "What is one confrontation you know you need to have?",
+            "What is one apology you still owe?",
+            "What is one truth you owe yourself?",
+            "What is one truth you owe someone else?",
+            "What is one boundary you need courage to set?",
+            "What is one habit you need courage to break?",
+            "What is one risk you need courage to take?",
+            "What is one decision you keep postponing because you fear the result?",
+            "What is one thing you need to stop running from?",
+            "Who here would you ask for help if you finally dropped your pride?",
+            "Who here would you confess weakness to first?",
+            "Who here would you never want to see you cry?",
+            "Who here would you feel safest being honest with?",
+            "Who here would you feel most exposed being honest with?",
+            "Who here would you want beside you during failure?",
+            "Who here would you avoid during failure?",
+            "Who here would motivate you by supporting you?",
+            "Who here would motivate you by challenging you?",
+            "Who here would make you stronger by being your rival?",
+            "Give one player a sincere compliment without making it funny.",
+            "Give one player a direct warning without being cruel.",
+            "Give one player advice they might not like but need.",
+            "Give one player a truth about how the group sees them.",
+            "Give one player a truth about how you see them.",
+            "Give one player a reason they should believe in themselves.",
+            "Give one player a reason they need to wake up.",
+            "Give one player a reason they should stop doubting themselves.",
+            "Give one player a reason they should stop acting untouchable.",
+            "Give one player a reason they should take themselves more seriously.",
+            "Let the group vote: was your last answer brave or safe?",
+            "Let the group vote: are you more honest or more guarded?",
+            "Let the group vote: do you hide fear well or badly?",
+            "Let the group vote: are you more prideful or sensitive?",
+            "Let the group vote: do you need more courage or more discipline?",
+            "Let the group vote: do you confront problems or avoid them?",
+            "Let the group vote: do you act stronger than you are?",
+            "Let the group vote: do you underestimate yourself?",
+            "Let the group vote: do you overestimate yourself?",
+            "Let the group vote: are you ready for your next level?",
+            "Choose one player. If they think your answer was brave, draw 1 card.",
+            "Choose one player. If they think your answer was fake, lose 1 HP.",
+            "Choose one player. If they accept your compliment, you gain 1 HP.",
+            "Choose one player. If they reject your answer as weak, discard 1 card.",
+            "Choose one player. They decide whether you gain 1 HP or answer another question.",
+            "Choose one player. They decide whether you draw 1 card or lose 1 HP.",
+            "Choose one player. They may challenge your answer. If you defend it well, draw 1 card.",
+            "Choose one player. They may ask for a deeper answer. If you refuse, lose 1 HP.",
+            "Choose one player. They may demand one example from your answer.",
+            "Choose one player. They may say whether your courage is real or performative.",
+            "Stand by one unpopular opinion you have about people at this table.",
+            "Say who here you think needs to be more honest with themselves.",
+            "Say who here you think needs to stop hiding behind jokes.",
+            "Say who here you think needs to stop acting stronger than they are.",
+            "Say who here you think needs to stop seeking validation.",
+            "Say who here you think needs to stop running from confrontation.",
+            "Say who here you think needs to forgive themselves.",
+            "Say who here you think needs to apologize to someone.",
+            "Say who here you think needs to take life more seriously.",
+            "Say who here you think is closer to greatness than they realize."
+        ];
+
+        let usedIndexes = [];
+
+        function openGate() {
+            if (usedIndexes.length === questions.length) {
+                usedIndexes = [];
+            }
+
+            let index;
+
+            do {
+                index = Math.floor(Math.random() * questions.length);
+            } while (usedIndexes.includes(index));
+
+            usedIndexes.push(index);
+
+            document.getElementById("question").innerText = questions[index];
+            document.getElementById("counter").innerText =
+                "Gate opened: " + usedIndexes.length + " / " + questions.length;
+        }
+    </script>
+</body>
+</html>
